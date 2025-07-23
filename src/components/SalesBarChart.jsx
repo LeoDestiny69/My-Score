@@ -21,7 +21,7 @@ const SalesBarChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/api/scores");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scores`);
         setData(res.data);
 
         const newAnimated = {};

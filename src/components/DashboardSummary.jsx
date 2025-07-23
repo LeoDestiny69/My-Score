@@ -67,7 +67,7 @@ const DashboardSummary = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/api/scores");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scores`);
         const incoming = res.data || [];
 
         // หา group ไหนค่าต่างจากเดิม → highlight
