@@ -5,11 +5,9 @@ import SalesBarChart from "./components/SalesBarChart";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-100 to-white">
+    <div className="min-h-screen max-h-screen overflow-y-auto bg-gradient-to-b from-neutral-100 to-white">
       <Header />
-
-      {/* ✅ กล่องหลัก ตรงกลาง สวย ๆ */}
-      <div className="max-w-5xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
         <DashboardSummary />
         <SalesBarChart />
       </div>

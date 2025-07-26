@@ -41,13 +41,13 @@ const SalesBarChart = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200 px-4 py-6 sm:px-8 sm:py-8 shadow-xl"
+      className="bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200 px-3 py-4 sm:px-6 sm:py-6 shadow max-h-[55vh] overflow-auto"
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-tight">
+      <h2 className="text-base sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 tracking-tight">
         🔢 Total Points by Group
       </h2>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         <AnimatePresence>
           {data.map((item, i) => {
             const percentage = (item.points / maxValue) * 100;
@@ -62,18 +62,14 @@ const SalesBarChart = () => {
                 exit={{ opacity: 0 }}
                 className="space-y-1"
               >
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center text-xs sm:text-sm">
                   <span className="text-gray-600 font-medium">{item.name}</span>
-                  <motion.span
-                    className="text-gray-800 font-semibold tabular-nums"
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
+                  <motion.span className="text-gray-800 font-semibold tabular-nums">
                     {animatedPoints[item.name]?.toLocaleString()}
                   </motion.span>
                 </div>
 
-                <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-3 sm:h-4 bg-gray-200 rounded-full overflow-hidden">
                   <motion.div
                     className={`h-full ${barColor}`}
                     animate={{ width: `${percentage}%` }}

@@ -11,10 +11,10 @@ const colorMap = {
 };
 
 const iconMap = {
-  North: <Users className="w-6 h-6 text-blue-500" />,
-  South: <Users className="w-6 h-6 text-green-500" />,
-  East: <Users className="w-6 h-6 text-orange-400" />,
-  West: <Users className="w-6 h-6 text-red-500" />,
+  North: <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />,
+  South: <Users className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />,
+  East: <Users className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" />,
+  West: <Users className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />,
 };
 
 const AnimatedNumber = ({ value, duration = 0.6 }) => {
@@ -81,7 +81,7 @@ const DashboardSummary = () => {
             label: item.name,
             points: Number(item.points) || 0,
             color: colorMap[item.name] || "text-gray-700",
-            icon: iconMap[item.name] || <Users className="w-6 h-6 text-gray-500" />,
+            icon: iconMap[item.name] || <Users className="w-5 h-5 text-gray-500" />,
           }))
         );
       } catch (error) {
@@ -95,23 +95,6 @@ const DashboardSummary = () => {
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={i}
-            className="bg-white/60 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 animate-pulse"
-          >
-            <div className="w-6 h-6 bg-gray-200 rounded mx-auto mb-3" />
-            <div className="h-3 w-16 bg-gray-200 rounded mx-auto mb-2" />
-            <div className="h-5 w-24 bg-gray-200 rounded mx-auto" />
-          </div>
-        ))}
-      </div>
-    );
-  }
 
   const containerVariants = {
     hidden: { opacity: 0, y: 10 },
@@ -127,9 +110,19 @@ const DashboardSummary = () => {
     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 260, damping: 20 } },
   };
 
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white rounded-2xl p-4 sm:p-6 animate-pulse shadow border" />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <motion.div
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -142,13 +135,13 @@ const DashboardSummary = () => {
               key={item.key}
               variants={cardVariants}
               layout
-              animate={isUpdated ? { scale: [1, 1.05, 1], boxShadow: "0 0 0 4px rgba(59,130,246,.4)" } : {}}
+              animate={isUpdated ? { scale: [1, 1.05, 1] } : {}}
               transition={{ duration: 0.4 }}
-              className="bg-white/80 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl duration-300"
+              className="bg-white/80 backdrop-blur-lg shadow border border-gray-200 rounded-2xl p-4 sm:p-6 text-center text-sm sm:text-base hover:shadow-md duration-200"
             >
-              <div className="flex justify-center mb-3">{item.icon}</div>
-              <p className="text-sm font-medium text-gray-500">{item.label}</p>
-              <p className={`text-2xl font-extrabold mt-1 ${item.color}`}>
+              <div className="flex justify-center mb-2">{item.icon}</div>
+              <p className="text-gray-500 font-medium">{item.label}</p>
+              <p className={`font-extrabold mt-1 text-lg sm:text-2xl ${item.color}`}>
                 <AnimatedNumber value={item.points} />
               </p>
             </motion.div>
