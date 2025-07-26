@@ -117,9 +117,9 @@ const DashboardSummary = () => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white rounded-xl p-3 sm:p-6 animate-pulse shadow border" />
+          <div key={i} className="bg-white rounded-xl p-2 sm:p-6 animate-pulse shadow border" />
         ))}
       </div>
     );
@@ -127,7 +127,7 @@ const DashboardSummary = () => {
 
   return (
     <motion.div
-      className="grid grid-cols-1 gap-3"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -142,11 +142,11 @@ const DashboardSummary = () => {
               layout
               animate={isUpdated ? { scale: [1, 1.05, 1] } : {}}
               transition={{ duration: 0.4 }}
-              className="bg-white/80 backdrop-blur-lg shadow border border-gray-200 rounded-xl p-3 sm:p-6 text-center text-xs sm:text-base hover:shadow-md duration-200"
+              className="bg-white/80 backdrop-blur-lg shadow border border-gray-200 rounded-xl p-2 sm:p-6 text-center text-[11px] sm:text-base hover:shadow-md duration-200"
             >
-              <div className="flex justify-center mb-2">{item.icon}</div>
-              <p className="text-gray-500 font-medium">{item.label}</p>
-              <p className={`font-extrabold mt-1 text-lg sm:text-2xl ${item.color}`}>
+              <div className="flex justify-center mb-1 sm:mb-2">{item.icon}</div>
+              <p className="text-gray-500 font-medium text-xs sm:text-sm">{item.label}</p>
+              <p className={`font-extrabold mt-1 text-base sm:text-2xl ${item.color}`}>
                 <AnimatedNumber value={item.points} />
               </p>
             </motion.div>
