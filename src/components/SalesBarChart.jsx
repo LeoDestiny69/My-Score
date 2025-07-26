@@ -41,7 +41,7 @@ const SalesBarChart = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200 p-8 shadow-xl mt-10"
+      className="bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200 px-4 py-6 sm:px-8 sm:py-8 shadow-xl mt-10 max-h-[80vh] overflow-y-auto"
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-tight">
         🔢 Total Points by Group

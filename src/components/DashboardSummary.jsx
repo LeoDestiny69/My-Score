@@ -17,9 +17,6 @@ const iconMap = {
   West: <Users className="w-6 h-6 text-red-500" />,
 };
 
-/* --------------------------------------------------
- * AnimatedNumber — นับขึ้นเมื่อค่าเปลี่ยน
- * -------------------------------------------------- */
 const AnimatedNumber = ({ value, duration = 0.6 }) => {
   const [display, setDisplay] = useState(0);
   const startRef = useRef(0);
@@ -39,7 +36,7 @@ const AnimatedNumber = ({ value, duration = 0.6 }) => {
       if (progress < 1) {
         frame = requestAnimationFrame(tick);
       } else {
-        startRef.current = end; // lock final
+        startRef.current = end;
         startTimeRef.current = null;
       }
     };
@@ -53,16 +50,11 @@ const AnimatedNumber = ({ value, duration = 0.6 }) => {
   return <>{display.toLocaleString()}</>;
 };
 
-/* --------------------------------------------------
- * DashboardSummary
- * -------------------------------------------------- */
 const DashboardSummary = () => {
   const [summaryData, setSummaryData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [updatedIds, setUpdatedIds] = useState(new Set()); // flash highlight
-
-  // เก็บค่าก่อนหน้าเพื่อตรวจว่ามีการเปลี่ยน
-  const prevDataRef = useRef({}); // {Group1: points}
+  const [updatedIds, setUpdatedIds] = useState(new Set());
+  const prevDataRef = useRef({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +62,6 @@ const DashboardSummary = () => {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scores`);
         const incoming = res.data || [];
 
-        // หา group ไหนค่าต่างจากเดิม → highlight
         const changed = new Set();
         incoming.forEach((item) => {
           const prev = prevDataRef.current[item.name];
@@ -80,15 +71,13 @@ const DashboardSummary = () => {
         });
         setUpdatedIds(changed);
 
-        // อัปเดต prev
         const prevMap = {};
         incoming.forEach((i) => (prevMap[i.name] = i.points));
         prevDataRef.current = prevMap;
 
-        // เก็บใน state
         setSummaryData(
           incoming.map((item) => ({
-            key: item.name, // stable key
+            key: item.name,
             label: item.name,
             points: Number(item.points) || 0,
             color: colorMap[item.name] || "text-gray-700",
@@ -102,12 +91,11 @@ const DashboardSummary = () => {
       }
     };
 
-    fetchData(); // first load
-    const interval = setInterval(fetchData, 5000); // poll
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  /* skeleton loading */
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
@@ -125,7 +113,6 @@ const DashboardSummary = () => {
     );
   }
 
-  /* layout variants for stagger */
   const containerVariants = {
     hidden: { opacity: 0, y: 10 },
     show: {
@@ -142,7 +129,7 @@ const DashboardSummary = () => {
 
   return (
     <motion.div
-      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10"
+      className="flex gap-4 overflow-x-auto sm:grid sm:grid-cols-2 md:grid-cols-4 mt-10 px-1"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -155,10 +142,9 @@ const DashboardSummary = () => {
               key={item.key}
               variants={cardVariants}
               layout
-              // เมื่อค่าข้างในเปลี่ยน → pulse สั้น ๆ
               animate={isUpdated ? { scale: [1, 1.05, 1], boxShadow: "0 0 0 4px rgba(59,130,246,.4)" } : {}}
               transition={{ duration: 0.4 }}
-              className="bg-white/80 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl duration-300"
+              className="bg-white/80 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl duration-300 min-w-[200px]"
             >
               <div className="flex justify-center mb-3">{item.icon}</div>
               <p className="text-sm font-medium text-gray-500">{item.label}</p>
