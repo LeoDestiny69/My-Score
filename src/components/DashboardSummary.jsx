@@ -98,7 +98,7 @@ const DashboardSummary = () => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
@@ -129,7 +129,7 @@ const DashboardSummary = () => {
 
   return (
     <motion.div
-      className="flex gap-4 overflow-x-auto sm:grid sm:grid-cols-2 md:grid-cols-4 mt-10 px-1"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -144,7 +144,7 @@ const DashboardSummary = () => {
               layout
               animate={isUpdated ? { scale: [1, 1.05, 1], boxShadow: "0 0 0 4px rgba(59,130,246,.4)" } : {}}
               transition={{ duration: 0.4 }}
-              className="bg-white/80 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl duration-300 min-w-[200px]"
+              className="bg-white/80 backdrop-blur-lg shadow-lg border border-gray-200 rounded-2xl p-6 text-center hover:scale-105 hover:shadow-xl duration-300"
             >
               <div className="flex justify-center mb-3">{item.icon}</div>
               <p className="text-sm font-medium text-gray-500">{item.label}</p>
