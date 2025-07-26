@@ -107,17 +107,12 @@ const DashboardSummary = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.95, y: 8 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 260, damping: 20 },
-    },
+    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 260, damping: 20 } },
   };
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="bg-white rounded-xl p-3 sm:p-6 animate-pulse shadow border" />
         ))}
@@ -127,7 +122,7 @@ const DashboardSummary = () => {
 
   return (
     <motion.div
-      className="grid grid-cols-1 gap-3"
+      className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4"
       variants={containerVariants}
       initial="hidden"
       animate="show"
