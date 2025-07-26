@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 
-const colors = [
-  "bg-gradient-to-r from-red-400 to-red-500",
-  "bg-gradient-to-r from-orange-400 to-orange-500",
-  "bg-gradient-to-r from-yellow-400 to-yellow-500",
-  "bg-gradient-to-r from-green-400 to-green-500",
-  "bg-gradient-to-r from-teal-400 to-teal-500",
-  "bg-gradient-to-r from-blue-400 to-blue-500",
-  "bg-gradient-to-r from-indigo-400 to-indigo-500",
-  "bg-gradient-to-r from-purple-400 to-purple-500",
-  "bg-gradient-to-r from-pink-400 to-pink-500",
-];
+const colorMap = {
+  North: "bg-blue-500",
+  South: "bg-green-500",
+  East: "bg-orange-400",
+  West: "bg-red-500",
+};
 
 const SalesBarChart = () => {
   const [data, setData] = useState([]);
@@ -56,6 +51,8 @@ const SalesBarChart = () => {
         <AnimatePresence>
           {data.map((item, i) => {
             const percentage = (item.points / maxValue) * 100;
+            const barColor = colorMap[item.name] || "bg-gray-400";
+
             return (
               <motion.div
                 key={i}
@@ -78,7 +75,7 @@ const SalesBarChart = () => {
 
                 <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
                   <motion.div
-                    className={`h-full ${colors[i % colors.length]}`}
+                    className={`h-full ${barColor}`}
                     animate={{ width: `${percentage}%` }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   />
