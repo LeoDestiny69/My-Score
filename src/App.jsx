@@ -8,17 +8,21 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-neutral-100 to-white">
       <Header />
 
-      {/* ⚡️ กำหนดพื้นที่แสดงแบบเต็มจอ (mobile) */}
-      <div className="h-[calc(100vh-64px)] flex flex-col lg:block max-w-5xl mx-auto px-4">
-        <div className="flex-1 overflow-hidden">
+      {/* ✅ กล่องใหญ่ 100vh ลบความสูงของ header */}
+      <div className="h-[calc(100vh-64px)] flex flex-col lg:grid lg:grid-cols-2 max-w-5xl mx-auto px-4">
+        {/* กล่องสรุปคะแนน */}
+        <div className="flex-1 overflow-auto p-2">
           <DashboardSummary />
         </div>
-        <div className="flex-1 overflow-hidden">
+
+        {/* กล่องกราฟ */}
+        <div className="flex-1 overflow-auto p-2">
           <SalesBarChart />
         </div>
       </div>
     </div>
   );
 }
+
 
 export default App;
